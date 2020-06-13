@@ -1,0 +1,16 @@
+__package__ = 'enums'
+class ROBOT_TYPE (object):
+    ROBOT_TYPE_GENERIC      = 0
+    ROBOT_TYPE_FIXED_WING   = 1
+    ROBOT_TYPE_QUADROTOR    = 3
+    ROBOT_TYPE_COAXIAL      = 4
+    ROBOT_TYPE_HELICOPTER   = 5
+    ROBOT_TYPE_HEXACOPTER   = 6
+    ROBOT_TYPE_GCS          = 7
+    ROBOT_TYPE_TURTLEBOT    = 8
+    ROBOT_TYPE_PARROT       = 9
+    ROBOT_TYPE_BEBOP        = 10
+    ROBOT_TYPE_ERLE_COPTER  = 11
+    ROBOT_TYPE_RIA_E100     = 12
+
+

@@ -1,0 +1,9 @@
+__package__ = 'configuration'
+
+class ROSLINK_MESSAGE_PERIOD(object):
+    #period of every message in seconds
+    ROSLINK_HEARTBEAT_MESSAGE_RATE        = 1
+    ROSLINK_ROBOT_STATUS_MESSAGE_RATE      = 0.5
+    ROSLINK_GLOBAL_MOTION_MESSAGE_RATE     = 0.5
+    ROSLINK_GPS_RAW_INFO_MESSAGE_RATE      = 0.5
+    ROSLINK_RANGE_FINDER_DATA_MESSAGE_RATE = 0.5
