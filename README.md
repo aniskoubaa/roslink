@@ -1,2 +1,35 @@
-# roslink
-This is the official repository of the roslink protocol
+# ROSLink
+
+ROSLink is a new protocol to integrate Robot Operating System (ROS) enabled-robots with the IoT. The motivation behind ROSLink is the lack of ROS functionality in monitoring and controlling robots through the Internet.
+
+For more details please see: [ROSLink paper](https://link.springer.com/chapter/10.1007/978-3-319-54927-9_8)
+
+## Installation
+To install and compile roslink open terminal and type
+```shell
+cd path/to/catkin_workspace/src 
+git clone https://github.com/aniskoubaa/roslink.git
+cd ..
+catkin_make
+```
+Install simple websocket server pacakge which is needed for `proxy-server.py` that acts as cloud to manage the communication between the robot and the user  
+`pip install git+https://github.com/dpallot/simple-websocket-server.git`
+
+## Usage
+- Run the proxy server using `python proxy-server.py`
+- In `src/tb3/tb3-roslink.launch` file, change `map_location` parm to the map image path
+- The last thing is to launch the rolsink bridge  `roslaunch roslink tb3-roslink.launch`
+
+## Running TB3 over Internet
+only some changes needed:
+- Copy `proxy-server.py` file to you public cloud.
+- install simple websocket server pacakge on the cloud
+- Run the proxy server on the cloud using `python proxy-server.py`
+- In `src/tb3/tb3-roslink.launch` file, change `ground_station_ip` parm to the cloud IP address
+- Run roslink bridge as previous.
+
+
+## Tutorials
+[[RIOTU] The Internet of-Unmanned Systems using ROS](https://www.youtube.com/watch?v=Om8tCDZieGI), for more information about the package watch this video 
+
+  
