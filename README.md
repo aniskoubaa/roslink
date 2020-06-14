@@ -12,12 +12,14 @@ git clone https://github.com/aniskoubaa/roslink.git
 cd ..
 catkin_make
 ```
-Install simple websocket server pacakge which is needed for `proxy-server.py` that acts as cloud to manage the communication between the robot and the user  
+Install simple websocket server pacakge which is needed for ROSLink bridge and `proxy-server.py` that acts as cloud to manage the communication between the robot and the user  
 `pip install git+https://github.com/dpallot/simple-websocket-server.git`
 
 ## Usage
 - Run the proxy server using `python proxy-server.py`
-- In `src/tb3/tb3-roslink.launch` file, change `map_location` parm to the map image path
+- In `src/tb3/tb3-roslink.launch` file: 
+  - change `map_location` parm to the map image path
+  - change `ground_station_ip` and `ground_station_port` parms to be same as the proxy server
 - The last thing is to launch the rolsink bridge  `roslaunch roslink tb3-roslink.launch`
 
 ## Running TB3 over Internet
@@ -32,4 +34,6 @@ only some changes needed:
 ## Tutorials
 [[RIOTU] The Internet of-Unmanned Systems using ROS](https://www.youtube.com/watch?v=Om8tCDZieGI), for more information about the package watch this video 
 
+## Udemy Courses 
+[Check Prof. Anis Koubaa Udemy courses to learn ROS](https://www.riotu-lab.org/udemy.php)
   
