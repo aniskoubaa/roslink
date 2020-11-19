@@ -17,9 +17,10 @@ Install simple websocket server pacakge which is needed for ROSLink bridge and `
 
 ## Dependencies
 install the following dependencies
-`pip install websocket`
-`pip install websocket-client`
-
+```shell
+pip install websocket
+pip install websocket-client
+```
 ## Usage
 - Run the proxy server using `python proxy-server.py`
 - In `src/tb3/tb3-roslink.launch` file: 
