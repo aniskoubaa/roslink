@@ -16,7 +16,7 @@ Install simple websocket server pacakge which is needed for ROSLink bridge and `
 `pip install git+https://github.com/dpallot/simple-websocket-server.git`
 
 ## Dependencies
-install the following dependencies
+install the following dependencies (use pip3 is you have Python 3.x)
 ```shell
 pip install websocket
 pip install websocket-client
