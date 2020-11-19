@@ -15,6 +15,11 @@ catkin_make
 Install simple websocket server pacakge which is needed for ROSLink bridge and `proxy-server.py` that acts as cloud to manage the communication between the robot and the user  
 `pip install git+https://github.com/dpallot/simple-websocket-server.git`
 
+## Dependencies
+install the following dependencies
+`pip install websocket`
+`pip install websocket-client`
+
 ## Usage
 - Run the proxy server using `python proxy-server.py`
 - In `src/tb3/tb3-roslink.launch` file: 
