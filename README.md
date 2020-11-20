@@ -4,6 +4,11 @@ ROSLink is a new protocol to integrate Robot Operating System (ROS) enabled-robo
 
 For more details please see: [ROSLink paper](https://link.springer.com/chapter/10.1007/978-3-319-54927-9_8)
 
+## Compatibility
+This branch is deployed and tested on ROS Noetic and Python 3.
+Note that this code is not compatible for ROS Kinetic and ROS Melodic and its Python 2.7.
+For the roslink version working under ROS Kinetic and Melodic and Python 2.7, consider the correct Master branch 
+
 ## Installation
 To install and compile roslink open terminal and type
 ```shell
