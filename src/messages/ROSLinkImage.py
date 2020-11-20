@@ -16,10 +16,10 @@ class ROSLinkImage(object):
 
         
     def printMessage(self):
-        print 'header: ', self.header
-        print 'owner_id: ', self.owner_id
-        print 'key: ' , self.key
-        print 'height: ' , self.height
-        print 'width: ' , self.width
+        print ('header: ', self.header)
+        print ('owner_id: ', self.owner_id)
+        print ('key: ' , self.key)
+        print ('height: ' , self.height)
+        print ('width: ' , self.width)
         
             

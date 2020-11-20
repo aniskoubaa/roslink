@@ -20,15 +20,15 @@ class GPSRawInfo(object):
         self.__dict__ = json.loads(message)
         
     def printMessage(self):
-        print 'time_usec: ', self.time_usec
-        print 'fix_type: ', self.fix_type
-        print 'lat: ', self.lat
-        print 'lon: ', self.lon
-        print 'alt: ', self.alt
-        print 'eph: ', self.eph
-        print 'epv: ', self.epv
-        print 'vel: ', self.vel
-        print 'cog: ', self.cog
-        print 'satellites_visible: ', self.satellites_visible
+        print ('time_usec: ', self.time_usec)
+        print ('fix_type: ', self.fix_type)
+        print ('lat: ', self.lat)
+        print ('lon: ', self.lon)
+        print ('alt: ', self.alt)
+        print ('eph: ', self.eph)
+        print ('epv: ', self.epv)
+        print ('vel: ', self.vel)
+        print ('cog: ', self.cog)
+        print ('satellites_visible: ', self.satellites_visible)
 
     

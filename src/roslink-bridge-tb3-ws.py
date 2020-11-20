@@ -2,8 +2,8 @@
 
 import websocket
 from websocket import create_connection , WebSocket # pip install websocket-client
-import thread
-
+import threading
+import datetime
 import socket
 import threading
 import sys
@@ -60,9 +60,9 @@ from configuration.ROSLINK_MESSAGE_PERIOD import *
 # import state variables 
 from states.ROSLinkStateVariables import ROSLinkStateVariables
 
-debug=True
-
-
+debug=False
+ENCODING = 'utf-8'
+COMPRESSION_RATE=35 #100 is full quality 
 POSE_TOPIC="/amcl_pose"
 CAMERA_TOPIC="/usb_cam/image_raw/compressed"
 #CAMERA_TOPIC="/camera/rgb/image_raw/compressed"
@@ -118,8 +118,8 @@ class ROSLinkBridgeTB3:
         ROSLinkBridgeTB3.gcs_server_ip = rospy.get_param("/ground_station_ip", "127.0.0.1")
         ROSLinkBridgeTB3.gcs_server_port =rospy.get_param("/ground_station_port", 25500)
         ROSLinkBridgeTB3.server_address  = ( ROSLinkBridgeTB3.gcs_server_ip, ROSLinkBridgeTB3.gcs_server_port)
-        print ROSLinkBridgeTB3.gcs_server_ip
-        print ROSLinkBridgeTB3.gcs_server_port 
+        print (ROSLinkBridgeTB3.gcs_server_ip)
+        print (ROSLinkBridgeTB3.gcs_server_port)
         
         ROSLinkStateVariables.ws_timer = 0
         ROSLinkBridgeTB3.WSconnected=False
@@ -137,7 +137,13 @@ class ROSLinkBridgeTB3:
     @staticmethod
     def websocketThread():
         if(not ROSLinkBridgeTB3.WSconnected):
-            WS_url = "ws://"+ ROSLinkBridgeTB3.gcs_server_ip+":9090/";
+            if (ROSLinkBridgeTB3.gcs_server_ip=='localhost'):
+                #for a local network
+                WS_url = "ws://"+ ROSLinkBridgeTB3.gcs_server_ip+":9090/";
+            else:
+                # this for public network
+                WS_url = "ws://"+ ROSLinkBridgeTB3.gcs_server_ip+":9090/websockets/roslink/user/"+str(ROSLinkStateVariables.owner_id) +"/robot/"+ROSLinkStateVariables.key+"/robot" 
+            WS_url = "ws://"+ ROSLinkBridgeTB3.gcs_server_ip+":9090/websockets/roslink/user/"+str(ROSLinkStateVariables.owner_id) +"/robot/"+ROSLinkStateVariables.key+"/robot" 
             ROSLinkBridgeTB3.ws = websocket.WebSocketApp(WS_url,
                                 on_message = ROSLinkBridgeTB3.on_message,
                                 on_error = ROSLinkBridgeTB3.on_error,
@@ -147,7 +153,6 @@ class ROSLinkBridgeTB3:
             
             # ROSLinkBridgeTB3.WSconnected=True;
             ROSLinkBridgeTB3.ws.run_forever(ping_interval=13, ping_timeout=10)
-        
 
 
     @staticmethod
@@ -228,7 +233,8 @@ class ROSLinkBridgeTB3:
         ROSLinkBridgeTB3.global_motion_msg_rate = rospy.get_param("/global_motion_msg_rate", ROSLINK_MESSAGE_PERIOD.ROSLINK_GLOBAL_MOTION_MESSAGE_RATE)
         ROSLinkBridgeTB3.gps_raw_info_msg_rate = rospy.get_param("/gps_raw_info_msg_rate", ROSLINK_MESSAGE_PERIOD.ROSLINK_GPS_RAW_INFO_MESSAGE_RATE)
         ROSLinkBridgeTB3.range_finder_data_msg_rate = rospy.get_param("/range_finder_data_msg_rate", ROSLINK_MESSAGE_PERIOD.ROSLINK_RANGE_FINDER_DATA_MESSAGE_RATE)
-        ROSLinkBridgeTB3.ROSLing_Image_msg_rate = rospy.get_param("/ROSLing_Image_msg_rate", 1)
+        ROSLinkBridgeTB3.ROSLing_Image_msg_rate = rospy.get_param("/image_msg_rate", ROSLINK_MESSAGE_PERIOD.ROSLINK_IMAGE_MESSAGE_RATE)
+    
         ROSLinkBridgeTB3.TwistCommand = Twist()
         ROSLinkBridgeTB3.sendingTwistFlag=True
         ROSLinkBridgeTB3.bridge = CvBridge()
@@ -240,14 +246,16 @@ class ROSLinkBridgeTB3:
         rospackpath= rospack.get_path('roslink') + "/logs/"
         print(rospackpath)
         ROSLinkBridgeTB3.logfiles={}
-        f_ROSLINK_MESSAGE_HEARTBEAT = open(rospackpath+time.ctime()+"ROSLINK_MESSAGE_HEARTBEAT.csv","w+")
-        f_ROSLINK_MESSAGE_ROBOT_STATUS = open(rospackpath+time.ctime()+"ROSLINK_MESSAGE_ROBOT_STATUS.csv","w+")
-        f_ROSLINK_MESSAGE_GLOBAL_MOTION = open(rospackpath+time.ctime()+"ROSLINK_MESSAGE_GLOBAL_MOTION.csv","w+")
-        f_ROSLINK_MESSAGE_GPS_RAW_INFO = open(rospackpath+time.ctime()+"ROSLINK_MESSAGE_GPS_RAW_INFO.csv","w+")
-        f_ROSLINK_MESSAGE_RANGE_FINDER_DATA = open(rospackpath+time.ctime()+"ROSLINK_MESSAGE_RANGE_FINDER_DATA.csv","w+")
-        f_ROSLINK_MESSAGE_ROSLINK_IMAGE = open(rospackpath+time.ctime()+"ROSLINK_MESSAGE_ROSLINK_IMAGE.csv","w+")
-        f_ROSLINK_MESSAGE_ROSLINK_MAP   = open(rospackpath+time.ctime()+"ROSLINK_MESSAGE_ROSLINK_MAP.csv","w+")
-        f_ROSLINK_MESSAGE_ROSLINK_GEO_TAGED_IMAGE = open(rospackpath+time.ctime()+"ROSLINK_MESSAGE_ROSLINK_GEO_TAGED_IMAGE.csv","w+")
+        ts=str(datetime.datetime.now())
+        #print(ts)
+        f_ROSLINK_MESSAGE_HEARTBEAT = open("ROSLINK_MESSAGE_HEARTBEAT_"+ts+".csv","w+")
+        f_ROSLINK_MESSAGE_ROBOT_STATUS = open("ROSLINK_MESSAGE_ROBOT_STATUS_"+ts+".csv","w+")
+        f_ROSLINK_MESSAGE_GLOBAL_MOTION = open("ROSLINK_MESSAGE_GLOBAL_MOTION_"+ts+".csv","w+")
+        f_ROSLINK_MESSAGE_GPS_RAW_INFO = open("ROSLINK_MESSAGE_GPS_RAW_INFO_"+ts+".csv","w+")
+        f_ROSLINK_MESSAGE_RANGE_FINDER_DATA = open("ROSLINK_MESSAGE_RANGE_FINDER_DATA_"+ts+".csv","w+")
+        f_ROSLINK_MESSAGE_ROSLINK_IMAGE = open("ROSLINK_MESSAGE_ROSLINK_IMAGE_"+ts+".csv","w+")
+        f_ROSLINK_MESSAGE_ROSLINK_MAP   = open("ROSLINK_MESSAGE_ROSLINK_MAP_"+ts+".csv","w+")
+        f_ROSLINK_MESSAGE_ROSLINK_GEO_TAGED_IMAGE = open("ROSLINK_MESSAGE_ROSLINK_GEO_TAGED_IMAGE_"+ts+".csv","w+")
 
         ROSLinkBridgeTB3.logfiles.update( {ROSLinkStateVariables.ROSLINK_MESSAGE_HEARTBEAT:f_ROSLINK_MESSAGE_HEARTBEAT} )
         ROSLinkBridgeTB3.logfiles.update( {ROSLinkStateVariables.ROSLINK_MESSAGE_ROBOT_STATUS:f_ROSLINK_MESSAGE_ROBOT_STATUS} )
@@ -296,16 +304,22 @@ class ROSLinkBridgeTB3:
     @staticmethod   
     def compressedImageCallback(data):
         try:
+            
           #cv_image = ROSLinkBridgeARDrone.bridge.imgmsg_to_cv2(data, "bgr8")
-            np_arr = np.fromstring(data.data, np.uint8)
+            np_arr = np.frombuffer(data.data, np.uint8)
             cv_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
             frame = cv_image
-            encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 35]
-            result, encimg = cv2.imencode('.jpg', frame, encode_param)
+            encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), COMPRESSION_RATE]
+            result, encoded_img = cv2.imencode('.jpg', frame, encode_param)
             # encoded = cv2.imencode('.png',frame)[1]
             # cv2.imshow("df",frame)
-            data = base64.encodestring(encimg)
+            #print(encimg.shape)
+            #data = base64.encodestring(encimg)
+            data = base64.b64encode(encoded_img)
+            data = data.decode(ENCODING)
+            #print(data)
+            #data = base64.encodebytes(encoded_img)
             # print("len(data)")
         except CvBridgeError as e:
           print(e)
@@ -460,7 +474,7 @@ class ROSLinkBridgeTB3:
         
         command = json.loads(msg)
         if(debug):
-            print 'ROSLink command received ..'
+            print ('ROSLink command received ..')
         # print msg
         # if command['header']['key'] != ROSLinkStateVariables.key:
         #     return
@@ -479,7 +493,7 @@ class ROSLinkBridgeTB3:
             # ROSLinkBridgeTB3.move_publisher.publish (ROSLinkBridgeTB3.TwistCommand)
             
         elif command['header']['message_id'] == MESSAGE_TYPE.ROSLINK_MESSAGE_COMMAND_GET_MAP:
-            print 'get map command received --------------------------'
+            print ('get map command received --------------------------')
             # print ROSLinkBridgeTB3.sendingTwistFlag
             # TwistCommandThread()
             try:
@@ -493,7 +507,9 @@ class ROSLinkBridgeTB3:
                 # file = open(ROSLinkStateVariables.map_location, 'rb')
                 # data = base64.b64encode(file.read())
                 
-                data = base64.encodestring(encimg)
+                #data = base64.encodestring(encimg)
+                data = base64.b64encode(encimg)
+                data = data.decode(ENCODING)
 
                 # data = u''+base64.encodestring(encoded);
                 print("map size: ",len(data),"path: ", ROSLinkStateVariables.map_location)
@@ -511,7 +527,7 @@ class ROSLinkBridgeTB3:
 
 
         elif command['header']['message_id'] == MESSAGE_TYPE.ROSLINK_MESSAGE_COMMAND_GO_TO_WAYPOINT:
-            print 'GO TO WAYPOINT command received --------------------------'
+            print ('GO TO WAYPOINT command received --------------------------')
             print(msg)
             print(command)
             print(command['x'])
@@ -636,7 +652,7 @@ class ROSLinkMessageThread ():
                     if (ROSLinkStateVariables.WSconnected):
                         self.send(self.socket, json.dumps(ROSLinkBridgeTB3.static_build_heartbeat_message()))
                         self.WS.send(json.dumps(ROSLinkBridgeTB3.static_build_heartbeat_message()))
-                        # print('heartbeat_message')
+                        #print('heartbeat_message')
                     else:
                         self.send(self.socket, json.dumps(ROSLinkBridgeTB3.static_build_heartbeat_message()))
                         self.WS = ROSLinkBridgeTB3.ws;
@@ -667,7 +683,7 @@ class ROSLinkMessageThread ():
                         image_message = json.dumps(ROSLinkBridgeTB3.static_build_ROSLink_image_message())
                         self.WS.send(image_message)
 
-                        # print ('ROSLink_image sent ws', len(image_message))
+                        #print ('ROSLink_image sent ws', len(image_message))
                         # print(ROSLinkStateVariables.sequence_numbers[MESSAGE_TYPE.ROSLINK_MESSAGE_ROSLINK_IMAGE])
 
                     else:
@@ -676,7 +692,7 @@ class ROSLinkMessageThread ():
                         self.WS = ROSLinkBridgeTB3.ws;
             except Exception as e:
                 print(e)
-                print self.name
+                print (self.name)
             
 
                 
@@ -687,7 +703,11 @@ class ROSLinkMessageThread ():
         Sending method
     '''
     def send (self, sock , msg): 
-        self.socket.sendto(msg, self.server_address)   
+        #for Python 3 use: self.socket.sendto(msg.encode(), self.server_address)
+        #for Python 2 use: self.socket.sendto(msg, self.server_address)
+        #print(msg.encode())
+        #+++print(msg)
+        self.socket.sendto(msg.encode(), self.server_address)   
 
 
 
@@ -700,8 +720,8 @@ class ROSLinkCommandProcessingThread ( ):
         t.setName(thread_name)
         t.start()
     def run ( self):
-        print "Start ROSLINK Command Processing Thread"
-        while True:
+        print ("Start ROSLINK Command Processing Thread")
+        while not rospy.is_shutdown():
             try:
                 msg, address = self.socket.recvfrom(MESSAGE_MAX_LENGTH)
                 ROSLinkBridgeTB3.process_roslink_command_message(msg)
@@ -710,6 +730,6 @@ class ROSLinkCommandProcessingThread ( ):
 
 
 if __name__ == '__main__':
-    print '\n************** Starting ROSLink Bridge for Turtlebot Burger **************\n' 
+    print ('\n************** Starting ROSLink Bridge for Turtlebot Burger **************\n' )
     # initialize ROS node for this client
     myDroneBridge = ROSLinkBridgeTB3() 

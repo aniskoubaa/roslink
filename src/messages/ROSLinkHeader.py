@@ -26,12 +26,12 @@ class ROSLinkHeader(object):
 		self.owner_id = self.__dict__['header']['owner_id']
 		
 	def printMessage(self):
-		print '--------------------------'
-		print 'roslink_version: ', self.roslink_version
-		print 'ros_version    : ', self.ros_version
-		print 'system_id      : ', self.system_id
-		print 'message_id     : ', self.message_id
-		print 'sequence_number: ', self.sequence_number
-		print 'key            : ', self.key
-		print '--------------------------'
+		print ('--------------------------')
+		print ('roslink_version: ', self.roslink_version)
+		print ('ros_version    : ', self.ros_version)
+		print ('system_id      : ', self.system_id)
+		print ('message_id     : ', self.message_id)
+		print ('sequence_number: ', self.sequence_number)
+		print ('key            : ', self.key)
+		print ('--------------------------')
 		

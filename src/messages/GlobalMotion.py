@@ -24,16 +24,16 @@ class GlobalMotion(object):
         self.__dict__ = json.loads(message)
         
     def printMessage(self):
-        print 'time_boot_ms: ', self.time_boot_ms
-        print 'x: ', self.x
-        print 'y: ', self.y
-        print 'z: ', self.z
-        print 'vx: ', self.vx
-        print 'vy: ', self.vy
-        print 'vz: ', self.vz
-        print 'wx: ', self.wx
-        print 'wy: ', self.wy
-        print 'wz: ', self.wz
-        print 'pitch: ', self.pitch
-        print 'roll: ', self.roll
-        print 'heading: ', self.heading
+        print ('time_boot_ms: ', self.time_boot_ms)
+        print ('x: ', self.x)
+        print ('y: ', self.y)
+        print ('z: ', self.z)
+        print ('vx: ', self.vx)
+        print ('vy: ', self.vy)
+        print ('vz: ', self.vz)
+        print ('wx: ', self.wx)
+        print ('wy: ', self.wy)
+        print ('wz: ', self.wz)
+        print ('pitch: ', self.pitch)
+        print ('roll: ', self.roll)
+        print ('heading: ', self.heading)

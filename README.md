@@ -4,11 +4,6 @@ ROSLink is a new protocol to integrate Robot Operating System (ROS) enabled-robo
 
 For more details please see: [ROSLink paper](https://link.springer.com/chapter/10.1007/978-3-319-54927-9_8)
 
-## Compatibility
-This version is deployed and tested on ROS Kientic and ROS Melodic which both use Python 2.7.
-Note that this code is not compatible for ROS Noetic and its Python 3.x.
-For the roslink version working under ROS Noetic and Python 3, consider the correct branch ros-noetic-python3
-
 ## Installation
 To install and compile roslink open terminal and type
 ```shell
@@ -20,12 +15,6 @@ catkin_make
 Install simple websocket server pacakge which is needed for ROSLink bridge and `proxy-server.py` that acts as cloud to manage the communication between the robot and the user  
 `pip install git+https://github.com/dpallot/simple-websocket-server.git`
 
-## Dependencies
-install the following dependencies (use pip3 is you have Python 3.x)
-```shell
-pip install websocket
-pip install websocket-client
-```
 ## Usage
 - Run the proxy server using `python proxy-server.py`
 - In `src/tb3/tb3-roslink.launch` file: 

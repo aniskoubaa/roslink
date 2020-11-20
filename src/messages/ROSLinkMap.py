@@ -21,13 +21,13 @@ class ROSLinkMap(object):
 
         
     def printMessage(self):
-        print 'header: ', self.header
-        print 'owner_id: ', self.owner_id
-        print 'key: ' , self.key
-        print 'height: ' , self.height
-        print 'width: ' , self.width
-        print "xoffset: ", self.xoffset
-        print "yoffset: ", self.yoffset
-        print "occupied_thresh: ", self.occupied_thresh
-        print "resolution: ", self.resolution
+        print ('header: ', self.header)
+        print ('owner_id: ', self.owner_id)
+        print ('key: ' , self.key)
+        print ('height: ' , self.height)
+        print ('width: ' , self.width)
+        print ("xoffset: ", self.xoffset)
+        print ("yoffset: ", self.yoffset)
+        print ("occupied_thresh: ", self.occupied_thresh)
+        print ("resolution: ", self.resolution)
             

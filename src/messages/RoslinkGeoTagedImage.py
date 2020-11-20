@@ -22,17 +22,17 @@ class RoslinkGeoTagedImage(object):
 
         
     def printMessage(self):
-        print 'header: ', self.header
-        print 'owner_id: ', self.owner_id
-        print 'key: ' , self.key
-        print 'height: ' , self.height
-        print 'width: ' , self.width
-        print 'lat: ', self.lat
-        print 'lon: ', self.lon
-        print 'alt: ', self.alt
-        print 'camera_pitch: ', self.camera_pitch 
-        print 'camera_roll: ', self.camera_roll 
-        print 'camera_yaw: ', self.camera_yaw
+        print ('header: ', self.header)
+        print ('owner_id: ', self.owner_id)
+        print ('key: ' , self.key)
+        print ('height: ' , self.height)
+        print ('width: ' , self.width)
+        print ('lat: ', self.lat)
+        print ('lon: ', self.lon)
+        print ('alt: ', self.alt)
+        print ('camera_pitch: ', self.camera_pitch )
+        print ('camera_roll: ', self.camera_roll )
+        print ('camera_yaw: ', self.camera_yaw)
         
 
         

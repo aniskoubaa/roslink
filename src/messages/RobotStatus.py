@@ -16,10 +16,10 @@ class RobotStatus(object):
         self.__dict__ = json.loads(message)
         
     def printMessage(self):
-        print 'onboard_control_sensors_present: ', self.onboard_control_sensors_present
-        print 'onboard_control_sensors_enabled: ' , self.onboard_control_sensors_enabled
-        print 'voltage_battery: ' , self.voltage_battery
-        print 'current_battery: ' , self.current_battery
-        print 'battery_remaining: ' , self.battery_remaining
+        print ('onboard_control_sensors_present: ', self.onboard_control_sensors_present)
+        print ('onboard_control_sensors_enabled: ' , self.onboard_control_sensors_enabled)
+        print ('voltage_battery: ' , self.voltage_battery)
+        print ('current_battery: ' , self.current_battery)
+        print ('battery_remaining: ' , self.battery_remaining)
         
         

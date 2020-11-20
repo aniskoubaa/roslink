@@ -16,9 +16,9 @@ class HeartBeat(object):
 
         
     def printMessage(self):
-        print 'type: ', self.type
-        print 'name: ' , self.name
-        print 'system_status: ' , self.system_status
-        print 'owner_id: ' , self.owner_id
-        print 'mode: ' , self.mode
+        print ('type: ', self.type)
+        print ('name: ' , self.name)
+        print ('system_status: ' , self.system_status)
+        print ('owner_id: ' , self.owner_id)
+        print ('mode: ' , self.mode)
             

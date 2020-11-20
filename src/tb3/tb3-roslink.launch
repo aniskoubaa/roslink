@@ -1,26 +1,27 @@
 <launch>
   <node pkg="roslink" name="roslink_bridge_tb3_ws_node" type="roslink-bridge-tb3-ws.py" output="screen"/>
 
-  <param name="ground_station_ip" value='localhost' />
+  <param name="ground_station_ip" value='208.113.133.197' />
   <param name="ground_station_port" value='25500' />
 
-  <param name="heartbeat_msg_rate" value="2" />
-  <param name="robot_status_msg_rate" value="2" />
-  <param name="global_motion_msg_rate" value="4" />
+  <param name="heartbeat_msg_rate" value="1" />
+  <param name="robot_status_msg_rate" value="1" />
+  <param name="global_motion_msg_rate" value="1" />
   <param name="gps_raw_info_msg_rate" value="0.5" />
   <param name="range_finder_data_msg_rate" value="0.5" />
-  <param name="map_location" value="/home/ros/map/tb3-house-map.jpg" />
+  <param name="image_msg_rate" value="30" />
+  <param name="map_location" value="/home/akoubaa/ros_maps/tb3_house_map.jpg" />
   <param name="map_xoffset" value="-10"/>
   <param name="map_yoffset" value="-10" />
   <param name="map_height" value="20"/>
   <param name="map_width" value="20" />  
-  <param name="ROSLing_Image_msg_rate" value="30" />
+  
 
   <param name="roslink_version" value="1" />
   <param name="ros_version" value="8"/>
   <param name="system_id" value='12'/>
   <param name="robot_name" value="TB3"/>
   <param name="type" value="0"/>
-  <param name="owner_id" value="5"/>
+  <param name="owner_id" value="12"/>
   <param name="key" value="12"/>
 </launch>

@@ -20,13 +20,13 @@ class RangeFinderData(object):
         self.__dict__ = json.loads(message)
         
     def printMessage(self):
-        print 'time_usec: ' , self.time_usec
-        print 'angle_min: ' , self.angle_min
-        print 'angle_max: ' , self.angle_max
-        print 'angle_increment: ' , self.angle_increment 
-        print 'time_increment: ' , self.time_increment 
-        print 'scan_time: ' , self.scan_time 
-        print 'range_min: ' , self.range_min 
-        print 'range_max: ' , self.range_max 
-        print 'ranges: ' , self.ranges 
-        print 'intensities: ' , self.intensities 
+        print ('time_usec: ' , self.time_usec)
+        print ('angle_min: ' , self.angle_min)
+        print ('angle_max: ' , self.angle_max)
+        print ('angle_increment: ' , self.angle_increment) 
+        print ('time_increment: ' , self.time_increment )
+        print ('scan_time: ' , self.scan_time )
+        print ('range_min: ' , self.range_min )
+        print ('range_max: ' , self.range_max) 
+        print ('ranges: ' , self.ranges )
+        print ('intensities: ' , self.intensities )
