@@ -9,6 +9,15 @@ This version is deployed and tested on ROS Kientic and ROS Melodic which both us
 Note that this code is not compatible for ROS Noetic and its Python 3.x.
 For the roslink version working under ROS Noetic and Python 3, consider the correct branch ros-noetic-python3
 
+## License
+
+* This software is provided without warranty.
+* The software author or license can not be held liable for any damages inflicted by the software.
+* This software is free to use for academic research and education noncommercial purposes with not-for-profit usage.
+* Any modification of the software for research, education and not-for-profit usage should be also pubically shared
+* For commercial for-profit usage, a commercial license has to be requested from the author of the code Anis Koubaa. The commercial license will allow to use privately the modified code without having to open source the modifications. The commercial license does not prevent the author from releasing newer versions of ROSLink without prior notice. 
+
+
 ## Installation
 To install and compile roslink open terminal and type
 ```shell
