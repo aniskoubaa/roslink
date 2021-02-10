@@ -9,6 +9,14 @@ This branch is deployed and tested on ROS Noetic and Python 3.
 Note that this code is not compatible for ROS Kinetic and ROS Melodic and its Python 2.7.
 For the roslink version working under ROS Kinetic and Melodic and Python 2.7, consider the correct Master branch 
 
+## License
+
+* This software is provided without warranty.
+* The software author or license can not be held liable for any damages inflicted by the software.
+* This software is free to use for academic research and education noncommercial purposes with not-for-profit usage.
+* Any modification of the software for research, education and not-for-profit usage should also be made publically available
+* For commercial for-profit usage, a commercial license has to be requested from the author of the code Anis Koubaa. The commercial license will allow to use privately the modified code without having to open source the modifications. The commercial license does not prevent the author from releasing newer versions of ROSLink without prior notice. 
+
 ## Installation
 To install and compile roslink open terminal and type
 ```shell
